@@ -44,7 +44,7 @@ public final class Coordinate {
         Coordinate other = (Coordinate)obj;
         return isZero(coord - other.coord);
     }
-
+//merge??/
     @Override
     public String toString() {
         return "" + coord;
