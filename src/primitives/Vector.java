@@ -117,8 +117,9 @@ public class Vector {
 	 * @return the current vector normlized
 	 */
 	public Vector normalize() {
-		
-		
+		double length=length();
+		head=new Point3D(head.x.coord/length, head.y.coord/length, head.z.coord/length);
+		return this;
 	}
 	
 	/**
@@ -126,7 +127,7 @@ public class Vector {
 	 * @return a new vector normlized
 	 */
 	public Vector normalized(){
-		
+		return new Vector(this.head).normalize();
 	}
 
 	@Override

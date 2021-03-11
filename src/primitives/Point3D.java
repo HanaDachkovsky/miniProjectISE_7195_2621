@@ -12,7 +12,7 @@ public class Point3D {
 	final Coordinate x;
 	final Coordinate y;
 	final Coordinate z;
-	final static Point3D ZERO=new Point3D(0,0,0);
+	public final static Point3D ZERO=new Point3D(0,0,0);
 	/**
 	 * Point3D constructor receiving a 3 coordinates
 	 * @param x - x value of the point
@@ -61,7 +61,7 @@ public class Point3D {
 	 * @return the squared distance between the points
 	 */
 	public double distanceSquared(Point3D point){
-		return (this.x.coord-this.x.coord)*(this.x.coord-this.x.coord)+(this.y.coord-this.y.coord)*(this.y.coord-this.y.coord)+(this.z.coord-this.z.coord)*(this.z.coord-this.z.coord);
+		return (this.x.coord-point.x.coord)*(this.x.coord-point.x.coord)+(this.y.coord-point.y.coord)*(this.y.coord-point.y.coord)+(this.z.coord-point.z.coord)*(this.z.coord-point.z.coord);
 	}
 	
 	/**
