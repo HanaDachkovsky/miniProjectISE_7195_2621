@@ -84,6 +84,7 @@ public class Point3D {
 		Point3D other= (Point3D)obj;
 		return this.x.equals(other.x) &&  this.y.equals(other.y) && this.z.equals(other.z);
 	}
+	
 	@Override
 	public String toString() {
 		return "Point3D [x=" + x.toString() + ", y=" + y.toString() + ", z=" + z.toString()+ "]";
