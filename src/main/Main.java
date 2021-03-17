@@ -8,6 +8,9 @@ import static primitives.Util.*;
  * Test program for the 1st stage
  *
  * @author Dan Zilberstein
+ * @author Hana Dachkovsky and Sara Tamar Amitai
+ * @emails Hana Dachkovsky- dachkovs@g.jct.ac.il and Sara Tamar Amitai-saratamar100@gmail.com
+ * @ID Hana Dachkovsky- 211752621 and Sara Tamar Amitai-212207195
  */
 public final class Main {
 
