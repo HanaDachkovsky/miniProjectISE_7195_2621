@@ -1,4 +1,4 @@
-package geomtries;
+package geometries;
 import primitives.*;
 /**
  * An interface of all geometries

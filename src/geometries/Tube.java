@@ -1,7 +1,7 @@
 /**
  * 
  */
-package geomtries;
+package geometries;
 
 import primitives.*;
 
