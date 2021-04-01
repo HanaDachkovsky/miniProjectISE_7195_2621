@@ -12,8 +12,8 @@ import primitives.*;
 
 
 /**
- * @author yuiya
- *
+ * Unit tests for Tube
+ * @author Hana Dachkovsky and Sara Tamar Amitai
  */
 public class TubeTests {
 

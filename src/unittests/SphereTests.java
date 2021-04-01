@@ -11,8 +11,8 @@ import geometries.Sphere;
 import primitives.*;
 
 /**
+ * Unit tests for Sphere
  * @author Hana Dachkovsky and Sara Tamar Amitai
- *
  */
 public class SphereTests {
 

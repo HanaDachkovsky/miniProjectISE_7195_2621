@@ -12,8 +12,8 @@ import primitives.*;
 
 
 /**
- * @author yuiya
- *
+ * Unit tests for Point3D
+ * @author Hana Dachkovsky and Sara Tamar Amitai
  */
 public class Point3DTests {
 
@@ -25,7 +25,7 @@ public class Point3DTests {
 		 // ============ Equivalence Partitions Tests ==============
 		//TC01:
 		 Point3D p1 = new Point3D(1, 2, 3); 
-	      assertEquals(Point3D.ZERO,p1.add(new Vector(-1, -2, -3)));
+	      assertEquals("add(Vector) result",Point3D.ZERO,p1.add(new Vector(-1, -2, -3)));
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class Point3DTests {
 		// ============ Equivalence Partitions Tests ==============
 		//TC01:
 		Point3D p1 = new Point3D(1, 2, 3); 
-		assertEquals(new Vector(1, 1, 1),new Point3D(2, 3, 4).subtract(p1));
+		assertEquals("subtract(Point3D) result",new Vector(1, 1, 1),new Point3D(2, 3, 4).subtract(p1));
 		// ============ Equivalence Partitions Tests ==============
 		//TC02:The result of the subtraction is close to zero vector 
 		try{

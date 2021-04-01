@@ -11,6 +11,7 @@ import geometries.*;
 import primitives.*;
 
 /**
+ * Unit tests for Plane
  * @author Hana Dachkovsky and Sara Tamar Amitai
  *
  */
