@@ -7,6 +7,7 @@ import primitives.*;
 
 /**
  * represents a tube in space
+ * 
  * @author Hana Dachkovsky and Sara Tamar Amitai
  *
  */
@@ -16,8 +17,9 @@ public class Tube implements Geometry {
 
 	/**
 	 * constructor gets a ray and a radius
+	 * 
 	 * @param axisRay- the central ray of the tube(the direction)
-	 * @param radius- the radius of the tube
+	 * @param radius-  the radius of the tube
 	 */
 	public Tube(Ray axisRay, double radius) {
 		this.axisRay = axisRay;
@@ -34,13 +36,19 @@ public class Tube implements Geometry {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-		return null;
+		double t = axisRay.getDir().dotProduct(point.subtract(axisRay.getP0()));
+		Point3D O;
+		if (Util.isZero(t)) {
+			O = axisRay.getP0();
+		} else {
+			O = axisRay.getP0().add(axisRay.getDir().scale(t));
+		}
+		return point.subtract(O).normalize();
 	}
 
 	@Override
 	public String toString() {
 		return "Tube [axisRay=" + axisRay.toString() + ", radius=" + radius + "]";
 	}
-
 
 }

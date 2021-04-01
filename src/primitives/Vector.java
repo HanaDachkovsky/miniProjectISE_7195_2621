@@ -62,10 +62,10 @@ public class Vector {
 	
 	/**
 	 * 
-	 * @param vector- the vector to subtruct
+	 * @param vector- the vector to subtract
 	 * @return a new vector
 	 */
-	public Vector subtruct(Vector vector) {
+	public Vector subtract(Vector vector) {
 		return new Vector(this.head.x.coord-vector.head.x.coord,this.head.y.coord-vector.head.y.coord,this.head.z.coord-vector.head.z.coord);
 	}
 	

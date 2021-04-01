@@ -3,7 +3,10 @@
  */
 package geometries;
 
-import primitives.Ray;
+
+
+
+import primitives.*;
 
 /**
   * represents a cylinder in space
@@ -32,6 +35,14 @@ public class Cylinder extends Tube {
 	public String toString() {
 		return "Cylinder [height=" + height + ", axisRay=" + axisRay.toString() + ", radius=" + radius + "]";
 	}
-	
+	@Override
+	public Vector getNormal(Point3D point) {
+		if(Util.isZero(axisRay.getDir().dotProduct(new Vector(point))-axisRay.getDir().dotProduct(new Vector(axisRay.getP0()))))//if the point is in the bottom base
+		  return axisRay.getDir().scale(-1);
+		if(Util.isZero(axisRay.getDir().dotProduct(new Vector(point))-axisRay.getDir().dotProduct(axisRay.getDir().scale(height).add(new Vector(axisRay.getP0())))))
+		  return axisRay.getDir();
+		return super.getNormal(point);
+	}
+
 	
 }

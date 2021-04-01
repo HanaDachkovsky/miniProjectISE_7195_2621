@@ -30,7 +30,9 @@ public class Plane implements Geometry {
 	 */
 	public Plane(Point3D p1, Point3D p2, Point3D p3) {
 		this.p0 = p1;
-		this.normal=null;
+		Vector v1=p2.subtract(p1);
+		Vector v2=p3.subtract(p1);
+		this.normal=(v1.crossProduct(v2)).normalize();
 	}
 	@Override
 	public Vector getNormal(Point3D point) {

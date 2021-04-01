@@ -50,7 +50,7 @@ public class Point3D {
 	 * @param point- point that is subtracted from the current point to create a new vector
 	 * @return - a new vector 
 	 */
-	public Vector subtruct(Point3D point){
+	public Vector subtract(Point3D point){
 		return new Vector(this.x.coord-point.x.coord,this.y.coord-point.y.coord,this.z.coord-point.z.coord);
 		
 	}

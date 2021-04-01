@@ -24,6 +24,7 @@ public class TriangleTests {
 	@Test
 	public void testGetNormal() {
 		// ============ Equivalence Partitions Tests ==============
+		//TC01:
 			Triangle triangle=new Triangle(new Point3D(1,0,0),new Point3D(0,0,0),new Point3D(0,1,0));
 			Vector normal=triangle.getNormal(new Point3D(0.1,0.1,0.1));
 			assertTrue("getNormal(Point3D) result",normal.equals(new Vector(0,0,1))||normal.equals(new Vector(0,0,-1)));
