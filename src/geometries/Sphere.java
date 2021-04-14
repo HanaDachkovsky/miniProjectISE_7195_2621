@@ -54,7 +54,7 @@ public class Sphere implements Geometry {
 			return List.of(ray.getPoint(radius));
 		Vector u=center.subtract(ray.getP0());
 		double tm=ray.getDir().dotProduct(u);
-		double d=Math.sqrt(u.lengthSquared()-tm*tm);
+		double d=Math.sqrt(alignZero(u.lengthSquared()-(tm*tm)));
 		if(isZero(d-radius)||d>=radius)
 			return null;
 		double th=Math.sqrt(radius*radius-d*d);

@@ -2,19 +2,25 @@ package main;
 
 import primitives.*;
 import static java.lang.System.out;
+import static org.junit.Assert.assertEquals;
 import static primitives.Util.*;
+
+import java.util.List;
+
+import geometries.Sphere;
 
 /**
  * Test program for the 1st stage
  *
  * @author Dan Zilberstein
  * @author Hana Dachkovsky and Sara Tamar Amitai
- * @emails Hana Dachkovsky- dachkovs@g.jct.ac.il and Sara Tamar Amitai-saratamar100@gmail.com
+ * @emails Hana Dachkovsky- dachkovs@g.jct.ac.il and Sara Tamar
+ *         Amitai-saratamar100@gmail.com
  * @ID Hana Dachkovsky- 211752621 and Sara Tamar Amitai-212207195
  */
 public final class Main {
 
-    /**
+	/**
      * Main program to tests initial functionality of the 1st stage
      * 
      * @param args irrelevant here
