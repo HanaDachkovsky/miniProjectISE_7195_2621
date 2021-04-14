@@ -2,6 +2,8 @@ package geometries;
 
 import java.util.List;
 import primitives.*;
+
+
 import static primitives.Util.*;
 
 /**
@@ -88,8 +90,26 @@ public class Polygon implements Geometry {
 
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		if(this.plane.findIntersections(ray)==null)
+			return null;
+		Boolean plus=false;
+		for(int i=0;i<this.vertices.size();i++)
+		{
+			Vector vi=this.vertices.get(i).subtract(ray.getP0());//vector from the p0 of ray to each vertex
+			Vector vii=this.vertices.get((i+1)%this.vertices.size()).subtract(ray.getP0());//vector to the next
+			Vector Ni=vi.crossProduct(vii);//cross product between each 2
+			double multy=ray.getDir().dotProduct(Ni);//check if all are in the same sign 
+			if(isZero(multy))						// and no one is zero
+				return null;
+			if(i==0)
+				plus=(multy>0);
+			else {
+				if(plus!=(multy>0))
+					return null;
+			}
+			
+		}
+		return this.plane.findIntersections(ray);
 	}
 
 	

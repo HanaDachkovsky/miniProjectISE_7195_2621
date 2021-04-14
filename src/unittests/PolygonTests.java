@@ -4,6 +4,9 @@
 package unittests;
 
 import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.junit.Test;
 
 import geometries.*;
@@ -91,6 +94,29 @@ public class PolygonTests {
         double sqrt3 = Math.sqrt(1d / 3);
         assertEquals("Bad normal to trinagle", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
     }
+    /**
+	 * Test method for {@link geometries.Polygon#findIntersections(primitives.Ray)}.
+	 */
+	@Test
+	public void testFindIntersections() {
+	Polygon polygon=new Polygon(new Point3D(-4,1,1),new Point3D(-4,-2,1),new Point3D(-1,-5,1),new Point3D(0,0,1),new Point3D(-2,1,1))	;
+	// ============ Equivalence Partitions Tests ==============
+	// TC01:the intersection with the plane is outside the polygon and against the edge
+	assertNull("Ray doesn't cross the triangle",polygon.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-5,-9,-3))));
+	// TC02:the intersection with the plane is outside the polygon and against the vertex
+	assertNull("Ray doesn't cross the triangle",polygon.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-8,-3,-3))));
+	// TC03:the intersection with the plane is inside the polygon
+	List<Point3D> result= polygon.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-7,-6,-3)));
+	assertEquals("Wrong number of points", 1, result.size());
+	assertEquals("Ray crosses triangle",List.of(new Point3D(-1,-1,1)), result);
+	// =============== Boundary Values Tests ==================
+	// TC04:the intersection with the plane on an edge
+	assertNull("Ray doesn't cross the triangle",polygon.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-13,-15,-6))));
+	// TC05:the intersection with the plane on a vertex
+	assertNull("Ray doesn't cross the triangle",polygon.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-10,-4,-3))));
+	// TC06:the intersection with the plane on the continuation of edge
+	assertNull("Ray doesn't cross the triangle",polygon.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-5,0,-3))));
+	}
 
 }
 

@@ -55,7 +55,7 @@ public class TriangleTests {
 	assertNull("Ray doesn't cross the triangle",triangle.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-4,-2,-1))));
 	// TC05:the intersection with the plane on a vertex
 	assertNull("Ray doesn't cross the triangle",triangle.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-5,-3,-1))));
-	// TC05:the intersection with the plane on a vertex
+	// TC05:the intersection with the plane on the continuation of edge
 	assertNull("Ray doesn't cross the triangle",triangle.findIntersections(new Ray(new Point3D(6,5,4), new Vector(1,3,-1))));
 	}
 }
