@@ -10,14 +10,14 @@ package primitives;
 public class Ray {
 	private Point3D p0;
 	private Vector dir;
-	
+
 	/**
 	 * @return the p0
 	 */
 	public Point3D getP0() {
 		return p0;
 	}
-	
+
 	/**
 	 * @return the direction
 	 */
@@ -26,14 +26,14 @@ public class Ray {
 	}
 
 	/**
-	 * @param p0 - start point of the ray
+	 * @param p0  - start point of the ray
 	 * @param dir - direction vector
 	 */
 	public Ray(Point3D p0, Vector dir) {
 		this.p0 = p0;
 		this.dir = dir.normalized();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -42,9 +42,15 @@ public class Ray {
 			return false;
 		if (!(obj instanceof Ray))
 			return false;
-		Ray other= (Ray)obj;
+		Ray other = (Ray) obj;
 		return this.p0.equals(other.p0) && this.dir.equals(other.dir);
 	}
-	
-
+	/**
+	 * 
+	 * @param t-scalar
+	 * @return p0+t*v
+	 */
+	public Point3D getPoint(double t) {
+		return p0.add(dir.scale(t));
+	}
 }

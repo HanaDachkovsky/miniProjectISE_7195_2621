@@ -6,6 +6,7 @@ package geometries;
 import java.util.List;
 
 import primitives.*;
+import static primitives.Util.*;
 
 /**
  * represents a plane in space
@@ -52,7 +53,12 @@ public class Plane implements Geometry {
 	}
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
-		// TODO Auto-generated method stub
+		if(this.p0.equals(ray.getP0()))
+			return null;
+		double t=alignZero((this.normal.dotProduct(this.p0.subtract(ray.getP0())))
+				/this.normal.dotProduct(ray.getDir()));
+		if(t>0)
+			return List.of(ray.getPoint(t));
 		return null;
 	}
 	
