@@ -110,23 +110,8 @@ public class VectorTests {
 	 * Test method for {@link primitives.Vector#dotProduct(primitives.Vector)}.
 	 */
 	@Test
-	public void testDotProduct() {
-		// ============ Equivalence Partitions Tests ==============
-		// TC01:the angle between the vectors is between 0-90
-		assertTrue("dotProduct(Vector) result",Util.isZero(1 - new Vector(1, 0, 0).dotProduct(new Vector(1, 1, 0))));
-		// TC02:the angle between the vectors is between 90 -180
-		assertTrue("dotProduct(Vector) result",Util.isZero(-1 - new Vector(1, 0, 0).dotProduct(new Vector(-1, 1, 0))));
-		// =============== Boundary Values Tests ==================
-		// TC03: multiply parallel vectors
-		assertTrue("dotProduct(Vector) result",Util.isZero(28 - new Vector(1, 2, 3).dotProduct(new Vector(2, 4, 6))));
-		// TC04: multiply by opposite vector
-		assertTrue("dotProduct(Vector) result",Util.isZero(-14 - new Vector(1, 2, 3).dotProduct(new Vector(-1, -2, -3))));
-		// TC05: multiply by the equal vector
-		assertTrue("dotProduct(Vector) result",Util.isZero(14 - new Vector(1, 2, 3).dotProduct(new Vector(1, 2, 3))));
-		// TC06:multiply by orthogonal vector
-		assertTrue("dotProduct(Vector) result",Util.isZero(new Vector(1, 0, 0).dotProduct(new Vector(0, 1, 0))));
-		// TC07:multiply vectors with the same length
-		assertTrue("dotProduct(Vector) result",Util.isZero(15 - new Vector(3, 4, 0).dotProduct(new Vector(5, 0, 0))));
+
+
 	}
 
 	/**

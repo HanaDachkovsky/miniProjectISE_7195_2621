@@ -3,6 +3,8 @@
  */
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /**
@@ -47,6 +49,11 @@ public class Plane implements Geometry {
 	@Override
 	public String toString() {
 		return "Plane [p0=" + p0.toString() + ", normal=" + normal.toString() + "]";
+	}
+	@Override
+	public List<Point3D> findIntersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
