@@ -9,11 +9,17 @@ import java.util.List;
 import primitives.Point3D;
 import primitives.Ray;
 
+/**
+ * 
+ * @author Hana Dachkovsky and Sara Tamar Amitai
+ * Geometries is a collection of geometries.
+ *
+ */
 public class Geometries implements Intersectable {
 	private List<Intersectable> listOfShapes;
 
 	/**
-	 * 
+	 *  Default ctor 
 	 */
 	public Geometries() {
 		///we chose LinkedList because we don't have to search
@@ -22,9 +28,18 @@ public class Geometries implements Intersectable {
 		listOfShapes = new LinkedList<>();
 	}
 
+	/**
+	 * 
+	 * @param geometries- the geometries of the list
+	 */
 	public Geometries(Intersectable... geometries) {
 		listOfShapes = new LinkedList<Intersectable>(Arrays.asList(geometries));
 	}
+	
+	/**
+	 * 
+	 * @param geometries-the geometries to add
+	 */
 
 	public void add(Intersectable... geometries) {
 		List<Intersectable> list = Arrays.asList(geometries);
