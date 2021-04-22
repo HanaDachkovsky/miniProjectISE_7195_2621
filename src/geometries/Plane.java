@@ -55,6 +55,9 @@ public class Plane implements Geometry {
 	public List<Point3D> findIntersections(Ray ray) {
 		if(this.p0.equals(ray.getP0()))
 			return null;
+		if(isZero(this.normal.dotProduct(ray.getDir())))//the normal is orthogonal to ray-
+														//the ray parallel to plane or contained
+			return null;
 		double t=alignZero((this.normal.dotProduct(this.p0.subtract(ray.getP0())))
 				/this.normal.dotProduct(ray.getDir()));
 		if(t>0)

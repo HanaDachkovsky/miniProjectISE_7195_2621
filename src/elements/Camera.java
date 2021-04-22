@@ -7,6 +7,8 @@ import primitives.*;
 import geometries.*;
 import static primitives.Util.*;
 
+//import org.graalvm.compiler.hotspot.HotSpotHostBackend;
+
 /**
  * @author
  *
@@ -82,6 +84,7 @@ public class Camera {
 			throw new IllegalArgumentException("the vectors are not orthogonal");
 		this.vRight = vTo.crossProduct(vUp);
 	}
+
 	/**
 	 * 
 	 * @param width
@@ -89,23 +92,37 @@ public class Camera {
 	 * @return
 	 */
 	public Camera setViewPlaneSize(double width, double height) {
-		this.width=width;
-		this.height=height;
+		this.width = width;
+		this.height = height;
 		return this;
 	}
+
 	/**
 	 * 
 	 * @param distance
 	 * @return
 	 */
 	public Camera setDistance(double distance) {
-		this.distance=distance;
+		this.distance = distance;
 		return this;
 	}
+
 	public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
-		return null;
+		Point3D pCenter;
+		if (isZero(this.distance))
+			pCenter = this.p0;
+		else
+			pCenter = this.p0.add(vTo.scale(this.distance));
+		double rY = this.height / nY;
+		double rX = this.width / nX;
+		double xJ = (j - 0.5 * (nX - 1)) * rX;
+		double yI = -(i - 0.5 * (nY - 1)) * rY;
+		Point3D pIJ = pCenter;
+		if (!isZero(xJ))
+			pIJ = pIJ.add(vRight.scale(xJ));
+		if (!isZero(yI))
+			pIJ = pIJ.add(vUp.scale(yI));
+		return new Ray(this.p0, pIJ.subtract(this.p0));
 	}
-
-
 
 }
