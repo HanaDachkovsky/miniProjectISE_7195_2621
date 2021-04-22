@@ -109,15 +109,15 @@ public class Camera {
 
 	public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
 		Point3D pCenter;
-		if (isZero(this.distance))
+		if (isZero(this.distance))//if the distance between the camera and the view plane is zero 
 			pCenter = this.p0;
 		else
-			pCenter = this.p0.add(vTo.scale(this.distance));
-		double rY = this.height / nY;
-		double rX = this.width / nX;
-		double xJ = (j - 0.5 * (nX - 1)) * rX;
-		double yI = -(i - 0.5 * (nY - 1)) * rY;
-		Point3D pIJ = pCenter;
+			pCenter = this.p0.add(vTo.scale(this.distance));// the center of the view plane is p0+Vto*distance
+		double rY = this.height / nY;//the height of each pixel
+		double rX = this.width / nX;//the width of each pixel
+		double xJ = (j - 0.5 * (nX - 1)) * rX;//the location of the pixel in the view plane in y axis of the view plane
+		double yI = -(i - 0.5 * (nY - 1)) * rY;//the location of the pixel in the view plane in x axis of the view plane
+		Point3D pIJ = pCenter;//the point that the ray cross over 
 		if (!isZero(xJ))
 			pIJ = pIJ.add(vRight.scale(xJ));
 		if (!isZero(yI))
