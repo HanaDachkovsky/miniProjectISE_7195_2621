@@ -3,6 +3,8 @@
  */
 package primitives;
 
+import java.util.List;
+
 /**
  * @author Hana Dachkovsky and Sara Tamar Amitai
  *
@@ -45,6 +47,7 @@ public class Ray {
 		Ray other = (Ray) obj;
 		return this.p0.equals(other.p0) && this.dir.equals(other.dir);
 	}
+
 	/**
 	 * 
 	 * @param t-scalar
@@ -52,5 +55,23 @@ public class Ray {
 	 */
 	public Point3D getPoint(double t) {
 		return p0.add(dir.scale(t));
+	}
+
+	public Point3D findClosestPoint(List<Point3D> list) {
+		// In the intersections - find the point with minimal distance from the ray
+		// head and return it
+		if (list == null || list.size() == 0)
+			return null;
+		double minDistance = Double.POSITIVE_INFINITY;
+		Point3D closePoint = null;
+		double distance;
+		for (Point3D point : list) {
+			distance = p0.distance(point);
+			if (distance < minDistance) {
+				closePoint = point;
+				minDistance = distance;
+			}
+		}
+		return closePoint;
 	}
 }
