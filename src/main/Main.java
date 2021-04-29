@@ -2,12 +2,10 @@ package main;
 
 import primitives.*;
 import static java.lang.System.out;
-import static org.junit.Assert.assertEquals;
+
 import static primitives.Util.*;
 
-import java.util.List;
 
-import geometries.Sphere;
 
 /**
  * Test program for the 1st stage
@@ -79,5 +77,7 @@ public final class Main {
              out.println("ERROR: Point - Point does not work correctly");
 
         out.println("If there were no any other outputs - all tests succeeded!");
+        
     }
+    
 }

@@ -57,6 +57,12 @@ public class Ray {
 		return p0.add(dir.scale(t));
 	}
 
+	
+	/**
+	 * 
+	 * @param list- the list of points that are on the ray that intersect the geometry
+	 * @return the closet point to p0
+	 */
 	public Point3D findClosestPoint(List<Point3D> list) {
 		// In the intersections - find the point with minimal distance from the ray
 		// head and return it
