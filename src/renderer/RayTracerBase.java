@@ -15,12 +15,16 @@ public abstract class RayTracerBase {
 
 	/**
 	 * ctor
-	 * @param scene
+	 * @param scene- include the camera the colors and the geometries 
 	 */
 	public RayTracerBase(Scene scene) {
 		this.scene = scene;
 	}
 	
+	/**
+	 * @param ray- the ray that intersect the geometry 
+	 * @return the color of the intersections
+	 */
 	public abstract Color traceRay (Ray ray );
 		
 	
