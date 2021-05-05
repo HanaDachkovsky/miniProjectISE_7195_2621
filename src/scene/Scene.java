@@ -48,4 +48,19 @@ public class Scene {
 		return this;
 	}
 
+	/**
+	 * @return the geometries
+	 */
+	public Geometries getGeometries() {
+		return geometries;
+	}
+
+	/**
+	 * @param geometries the geometries to set
+	 */
+	public void setGeometries(Geometries geometries) {
+		this.geometries = geometries;
+	}
+	
+
 }
