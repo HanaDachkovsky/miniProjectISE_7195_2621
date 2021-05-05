@@ -13,7 +13,7 @@ import static primitives.Util.*;
  * @author  Hana Dachkovsky and Sara Tamar Amitai
  *
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 	private Point3D p0;
 	private Vector normal;
 	/**
@@ -62,6 +62,19 @@ public class Plane implements Geometry {
 				/this.normal.dotProduct(ray.getDir()));
 		if(t>0)
 			return List.of(ray.getPoint(t));
+		return null;
+	}
+	@Override
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+		if(this.p0.equals(ray.getP0()))
+			return null;
+		if(isZero(this.normal.dotProduct(ray.getDir())))//the normal is orthogonal to ray-
+														//the ray parallel to plane or contained
+			return null;
+		double t=alignZero((this.normal.dotProduct(this.p0.subtract(ray.getP0())))
+				/this.normal.dotProduct(ray.getDir()));
+		if(t>0)
+			return List.of(new GeoPoint(this, ray.getPoint(t)));
 		return null;
 	}
 	

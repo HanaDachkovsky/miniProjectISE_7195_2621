@@ -13,7 +13,7 @@ import primitives.*;
  * @author Hana Dachkovsky and Sara Tamar Amitai
  *
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
 	protected Ray axisRay;
 	protected double radius;
 
