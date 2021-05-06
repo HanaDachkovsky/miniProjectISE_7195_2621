@@ -48,26 +48,7 @@ public class Sphere extends Geometry {
 		return "Sphere [center=" + center.toString() + ", radius=" + radius + "]";
 	}
 
-	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		if(ray.getP0().equals(center))
-			return List.of(ray.getPoint(radius));
-		Vector u=center.subtract(ray.getP0());
-		double tm=ray.getDir().dotProduct(u);
-		double d=Math.sqrt(alignZero(u.lengthSquared()-(tm*tm)));
-		if(isZero(d-radius)||d>=radius)
-			return null;
-		double th=Math.sqrt(radius*radius-d*d);
-		double t1=alignZero(tm+th);
-		double t2=alignZero(tm-th);
-		if(t1<=0&&t2<=0)
-			return null;
-		if(t1<=0)
-			return List.of(ray.getPoint(t2));
-		if(t2<=0)
-			return List.of(ray.getPoint(t1));
-		return List.of(ray.getPoint(t1),ray.getPoint(t2));
-	}
+	
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		if(ray.getP0().equals(center))

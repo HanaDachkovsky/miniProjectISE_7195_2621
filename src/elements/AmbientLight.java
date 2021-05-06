@@ -10,22 +10,14 @@ import java.awt.Color;
  * @author Hana Davchkovsky and Sara Tamar Amitai
  *
  */
-public class AmbientLight {
-	private primitives.Color intensity;
-
+public class AmbientLight extends Light{
 	/**
 	 * @param intensity
 	 */
 	public AmbientLight(primitives.Color ia,double ka) {
-		this.intensity = ia.scale(ka);
+		super(ia.scale(ka));
 	}
 
-	/**
-	 * @return the intensity
-	 */
-	public primitives.Color getIntensity() {
-		return intensity;
-	}
 
 	
 

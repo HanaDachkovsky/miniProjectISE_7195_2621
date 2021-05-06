@@ -6,7 +6,8 @@ import primitives.*;
  *
  */
 public abstract class Geometry implements Intersectable {
-	protected Color emmission=Color.BLACK;
+	protected Color emission=Color.BLACK;
+	private Material material=new Material();
 	/**
 	 * returns a normal to geometry in point
 	 * @param point- a point in the geometry
@@ -14,16 +15,31 @@ public abstract class Geometry implements Intersectable {
 	 */
 	public abstract Vector getNormal(Point3D point);
 	/**
-	 * @return the emmission
+	 * @return the emission
 	 */
-	public Color getEmmission() {
-		return emmission;
+	public Color getEmission() {
+		return emission;
 	}
 	/**
-	 * @param emmission the emmission to set
+	 * @param emission the emission to set
 	 */
-	public Geometry setEmmission(Color emmission) {
-		this.emmission = emmission;
+	public Geometry setEmission(Color emmission) {
+		this.emission = emmission;
 		return this;
 	}
+	/**
+	 * @return the material
+	 */
+	public Material getMaterial() {
+		return material;
+	}
+	/**
+	 * @param material the material to set
+	 * @return this
+	 */
+	public Geometry setMaterial(Material material) {
+		this.material = material;
+		return this;
+	}
+	
 }

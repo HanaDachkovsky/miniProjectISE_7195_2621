@@ -70,11 +70,11 @@ public class Render {
 		if (rayTracer == null) {
 			throw new MissingResourceException("rayTracer is null", "RayTracerBase", "rayTracer");
 		}
-		for (int i = 0; i < imageWriter.getNx(); i++) {
-			for (int j = 0; j < imageWriter.getNy(); j++) {
+		for (int i = 0; i < imageWriter.getNy(); i++) {
+			for (int j = 0; j < imageWriter.getNx(); j++) {
 				Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);//create ray through each pixel
 				primitives.Color color=rayTracer.traceRay(ray);//find the color of the intersection points
-				imageWriter.writePixel(i, j, color);
+				imageWriter.writePixel(j, i, color);
 
 			}
 		}

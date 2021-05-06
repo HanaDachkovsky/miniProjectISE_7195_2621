@@ -52,19 +52,6 @@ public class Plane extends Geometry {
 		return "Plane [p0=" + p0.toString() + ", normal=" + normal.toString() + "]";
 	}
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		if(this.p0.equals(ray.getP0()))
-			return null;
-		if(isZero(this.normal.dotProduct(ray.getDir())))//the normal is orthogonal to ray-
-														//the ray parallel to plane or contained
-			return null;
-		double t=alignZero((this.normal.dotProduct(this.p0.subtract(ray.getP0())))
-				/this.normal.dotProduct(ray.getDir()));
-		if(t>0)
-			return List.of(ray.getPoint(t));
-		return null;
-	}
-	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		if(this.p0.equals(ray.getP0()))
 			return null;
