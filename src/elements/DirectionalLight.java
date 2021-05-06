@@ -7,7 +7,7 @@ import primitives.*;
 import static primitives.Util.*;
 
 /**
- * @author aaa
+ * @author 
  *
  */
 public class DirectionalLight extends Light implements LightSource {

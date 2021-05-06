@@ -14,20 +14,23 @@ public class Material {
 	/**
 	 * @param kD the kD to set
 	 */
-	public void setkD(double kD) {
+	public Material setKd(double kD) {
 		this.kD = kD;
+		return this;
 	}
 	/**
 	 * @param kS the kS to set
 	 */
-	public void setkS(double kS) {
+	public Material setKs(double kS) {
 		this.kS = kS;
+		return this;
 	}
 	/**
 	 * @param nShininess the nShininess to set
 	 */
-	public void setnShininess(int nShininess) {
+	public Material setnShininess(int nShininess) {
 		this.nShininess = nShininess;
+		return this;
 	}
 	
 
