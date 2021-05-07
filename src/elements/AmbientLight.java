@@ -12,10 +12,18 @@ import java.awt.Color;
  */
 public class AmbientLight extends Light{
 	/**
+	 * ctor with params
 	 * @param intensity
 	 */
 	public AmbientLight(primitives.Color ia,double ka) {
 		super(ia.scale(ka));
+	}
+	/**
+	 * ctor with no params that sets to black
+	 * 
+	 */
+	public AmbientLight() {
+		super(primitives.Color.BLACK);
 	}
 
 

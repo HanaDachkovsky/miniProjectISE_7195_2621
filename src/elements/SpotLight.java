@@ -8,7 +8,6 @@ import primitives.Point3D;
 import primitives.Vector;
 import static primitives.Util.*;
 
-import com.sun.tools.classfile.TypeAnnotation.Position;
 
 /**
  * @author 
@@ -24,8 +23,8 @@ public class SpotLight extends PointLight {
 	 * @param kQ
 	 * @param direction
 	 */
-	public SpotLight(Color intensity, Point3D position, double kC, double kL, double kQ, Vector direction) {
-		super(intensity, position, kC, kL, kQ);
+	public SpotLight(Color intensity, Point3D position, Vector direction) {
+		super(intensity, position);
 		this.direction = direction.normalize();
 	}
 	@Override

@@ -35,7 +35,7 @@ public class RayTracerBasic extends RayTracerBase {
 			return scene.background;
 		}
 		GeoPoint closetPoint = ray.findClosestGeoPoint(intersectionsList);
-		return calcColor(closetPoint);
+		return calcColor(closetPoint, ray);
 	}
 
 	/**
@@ -44,16 +44,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the color in the point
 	 */
 	private Color calcColor(GeoPoint point, Ray ray) {
-		return  scene.ambientLight.getIntensity().add(point.geometry.getEmission())
-				.add(calcLocalEffects(point, ray));
-//		for (LightSource lightSource : scene.lights) {
-//			Vector L = lightSource.getL(point.point);
-//			Vector n = point.geometry.getNormal(point.point);
-//			Vector r = L.subtract(n.scale(2 * n.dotProduct(L)));
-//			Color I = lightSource.getIntensity(point.point);
-//			color.add(I.scale(point.geometry.getMaterial().kD * Math.abs(L.dotProduct(n))));
-//			color.add(I.scale(point.geometry.getMaterial().kS*Math.pow(Math.max(0, -ray.getDir().dotProduct(r)), point.geometry.getMaterial().nShininess)));
-//		}
+		return  scene.ambientLight.getIntensity().add(point.geometry.getEmission(),calcLocalEffects(point, ray));
 		
 	}
 

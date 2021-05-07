@@ -9,11 +9,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import geometries.Plane;
-import geometries.Triangle;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+import geometries.*;
+import primitives.*;
+
 
 /**
  * Unit tests for Triangle
