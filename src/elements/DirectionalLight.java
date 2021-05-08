@@ -8,12 +8,12 @@ import static primitives.Util.*;
 
 /**
  * @author 
- *
+ *class for directional light- light that its power is not lower in distance
  */
 public class DirectionalLight extends Light implements LightSource {
 	private Vector direction;
-
 	/**
+	 * ctor that gets 2 params
 	 * @param intensity
 	 * @param direction
 	 */

@@ -16,12 +16,10 @@ import static primitives.Util.*;
 public class SpotLight extends PointLight {
 	private Vector direction;
 	/**
-	 * @param intensity
-	 * @param position
-	 * @param kC
-	 * @param kL
-	 * @param kQ
-	 * @param direction
+	 * ctor with params
+	 * @param intensity- the intensity of light in the point
+	 * @param position- the location of lighter
+	 * @param direction- the direction of light
 	 */
 	public SpotLight(Color intensity, Point3D position, Vector direction) {
 		super(intensity, position);

@@ -9,7 +9,7 @@ import primitives.Vector;
 
 /**
  * @author 
- *
+ *class for point light- light that its power is equal for each direction
  */
 public class PointLight extends Light implements LightSource {
 	private Point3D position;
@@ -18,11 +18,9 @@ public class PointLight extends Light implements LightSource {
 	private double kQ=0;
 
 	/**
-	 * @param intensity
-	 * @param position
-	 * @param kC
-	 * @param kL
-	 * @param kQ
+	 * @param intensity-the intensity of light in the point
+	 * @param position- the location of the light
+	 * ctor with params
 	 */
 	public PointLight(Color intensity, Point3D position) {
 		super(intensity);

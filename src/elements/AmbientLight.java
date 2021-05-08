@@ -20,7 +20,6 @@ public class AmbientLight extends Light{
 	}
 	/**
 	 * ctor with no params that sets to black
-	 * 
 	 */
 	public AmbientLight() {
 		super(primitives.Color.BLACK);
