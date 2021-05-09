@@ -29,7 +29,7 @@ public class SpotLight extends PointLight {
 	public Color getIntensity(Point3D p) {
 		double cosinus=alignZero(direction.dotProduct(getL(p)));
 		if(cosinus>0)
-			return super.getIntensity().scale(cosinus);
+			return super.getIntensity(p).scale(cosinus);
 		else {
 			return Color.BLACK;
 		}
