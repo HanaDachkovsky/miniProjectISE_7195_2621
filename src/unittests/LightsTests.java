@@ -24,11 +24,11 @@ public class LightsTests {
 			.setViewPlaneSize(200, 200) //
 			.setDistance(1000);
 
-	private static Geometry triangle1 = new Triangle( //
+	private  Geometry triangle1 = new Triangle( //
 			new Point3D(-150, -150, -150), new Point3D(150, -150, -150), new Point3D(75, 75, -150));
-	private static Geometry triangle2 = new Triangle( //
+	private  Geometry triangle2 = new Triangle( //
 			new Point3D(-150, -150, -150), new Point3D(-70, 70, -50), new Point3D(75, 75, -150));
-	private static Geometry sphere = new Sphere(new Point3D(0, 0, -50), 50) //
+	private  Geometry sphere = new Sphere(new Point3D(0, 0, -50), 50) //
 			.setEmission(new Color(java.awt.Color.BLUE)) //
 			.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(100));
 
