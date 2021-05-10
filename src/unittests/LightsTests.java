@@ -151,7 +151,7 @@ public class LightsTests {
 		scene2.lights.add(new PointLight(new Color(500, 250, 250), new Point3D(-100, -100, -130)) //
 				.setKl(0.005).setKq(0.0004));
 		scene2.lights.add(new SpotLight(new Color(500, 250, 250), new Point3D(0,0, -70), new Vector(75, 75, -150)) //
-				.setKl(0.001).setKq(0.004));
+				.setKl(0.00001).setKq(0.00004));
 
 		ImageWriter imageWriter = new ImageWriter("lightTrianglesAllLights", 500, 500);
 		Render render = new Render()//

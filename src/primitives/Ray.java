@@ -50,6 +50,12 @@ public class Ray {
 		return this.p0.equals(other.p0) && this.dir.equals(other.dir);
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Ray [p0=" + p0.toString() + ", dir=" + dir.toString() + "]";
+	}
+
 	/**
 	 * 
 	 * @param t-scalar

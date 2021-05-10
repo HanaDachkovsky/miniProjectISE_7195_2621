@@ -63,20 +63,20 @@ public class RayTracerBasic extends RayTracerBase {
 			double nl = alignZero(n.dotProduct(l));
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
 				Color lightIntensity = lightSource.getIntensity(intersection.point);
-				color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-						calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+				color = color.add(calcDiffusive(kd, l, n, nl, lightIntensity),
+						calcSpecular(ks, l, n, nl, v, nShininess, lightIntensity));
 			}
 		}
 		return color;
 	}
 
-	private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
-		Vector r = l.subtract(n.scale(2 * n.dotProduct(l)));
+	private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess, Color lightIntensity) {
+		Vector r = l.subtract(n.scale(2 * nl));
 		return lightIntensity.scale(ks*Math.pow(Math.max(0, -v.dotProduct(r)), nShininess));
 	}
 
-	private Color calcDiffusive(double kd, Vector l, Vector n, Color lightIntensity) {
-		return lightIntensity.scale(kd * Math.abs(l.dotProduct(n)));
+	private Color calcDiffusive(double kd, Vector l, Vector n, double nl, Color lightIntensity) {
+		return lightIntensity.scale(kd * Math.abs(nl));
 	}
 
 }
