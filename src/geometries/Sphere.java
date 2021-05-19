@@ -79,7 +79,7 @@ public class Sphere extends Geometry {
 			} else {
 				return null;
 			}
-		}
+		}//up to here
 		Vector u = center.subtract(ray.getP0());
 		double tm = ray.getDir().dotProduct(u);
 		double d = Math.sqrt(alignZero(u.lengthSquared() - (tm * tm)));
