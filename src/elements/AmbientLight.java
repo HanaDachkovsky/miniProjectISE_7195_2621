@@ -4,8 +4,6 @@
 package elements;
 import primitives.*;
 
-import java.awt.Color;
-
 /**
  * @author Hana Davchkovsky and Sara Tamar Amitai
  *

@@ -6,7 +6,6 @@ package geometries;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 import primitives.*;
 
 /**
@@ -28,7 +27,13 @@ public interface Intersectable {
 		return geoList == null ? null : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
 	}
 
-	List<GeoPoint> findGeoIntersections(Ray ray);
+	//List<GeoPoint> findGeoIntersections(Ray ray);
+
+	default List<GeoPoint> findGeoIntersections(Ray ray) {
+		return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+	}
+
+	List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
 
 	/**
 	 * 
@@ -61,6 +66,7 @@ public interface Intersectable {
 			GeoPoint other = (GeoPoint) obj;
 			return geometry == other.geometry && point.equals(other.point);
 		}
+
 		@Override
 		public String toString() {
 			return "GeoPoint [geometry=" + geometry.toString() + ", point=" + point.toString() + "]";

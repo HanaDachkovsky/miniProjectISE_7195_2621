@@ -34,10 +34,6 @@ public class SpotLight extends PointLight {
 			return Color.BLACK;
 		}
 	}
-
-	@Override
-	public Vector getL(Point3D p) {
-		return super.getL(p);
-	} 
+ 
 
 }

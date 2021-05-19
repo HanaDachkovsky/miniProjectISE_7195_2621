@@ -61,5 +61,9 @@ public class PointLight extends Light implements LightSource {
 		this.kQ = kQ;
 		return this;
 	}
+	@Override
+	public double getDistance(Point3D point) {
+		return point.distance(position);
+	}
 
 }

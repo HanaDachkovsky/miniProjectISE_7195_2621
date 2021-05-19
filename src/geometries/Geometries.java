@@ -47,11 +47,27 @@ public class Geometries implements Intersectable {
 	}
 
 	
+//	@Override
+//	public List<GeoPoint> findGeoIntersections(Ray ray) {
+//		LinkedList<GeoPoint> allInter = null;//united list of intersections
+//		for (Intersectable shape : listOfShapes) {
+//			List<GeoPoint> shapeInter = shape.findGeoIntersections(ray);//intersections for each shape
+//			if (shapeInter != null) {//add to the united list
+//				if (allInter == null)
+//					allInter = new LinkedList<GeoPoint>();
+//				for (GeoPoint point : shapeInter) {
+//					allInter.add(point);
+//				}
+//			}
+//		}
+//		return allInter;
+//	}
+
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 		LinkedList<GeoPoint> allInter = null;//united list of intersections
 		for (Intersectable shape : listOfShapes) {
-			List<GeoPoint> shapeInter = shape.findGeoIntersections(ray);//intersections for each shape
+			List<GeoPoint> shapeInter = shape.findGeoIntersections(ray,maxDistance);//intersections for each shape
 			if (shapeInter != null) {//add to the united list
 				if (allInter == null)
 					allInter = new LinkedList<GeoPoint>();
