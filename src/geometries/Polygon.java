@@ -137,7 +137,7 @@ public class Polygon extends Geometry {
 			}
 			
 		}
-		List<GeoPoint> list=this.plane.findGeoIntersections(ray);
+		List<GeoPoint> list=this.plane.findGeoIntersections(ray,maxDistance);
 		if(list==null)
 			return null;
 		list.forEach(shape->shape.geometry=this);

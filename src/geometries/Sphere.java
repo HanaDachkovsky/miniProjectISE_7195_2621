@@ -79,7 +79,7 @@ public class Sphere extends Geometry {
 			} else {
 				return null;
 			}
-		}//up to here
+		}
 		Vector u = center.subtract(ray.getP0());
 		double tm = ray.getDir().dotProduct(u);
 		double d = Math.sqrt(alignZero(u.lengthSquared() - (tm * tm)));
@@ -91,10 +91,25 @@ public class Sphere extends Geometry {
 		if (t1 <= 0 && t2 <= 0)
 			return null;
 		if (t1 <= 0)
-			return List.of(new GeoPoint(this, ray.getPoint(t2)));
+			if (alignZero(t2 - maxDistance) <= 0) {
+				return List.of(new GeoPoint(this, ray.getPoint(t2)));
+			} else {
+				return null;
+			}
 		if (t2 <= 0)
+			if (alignZero(t1 - maxDistance) <= 0) {
+				return List.of(new GeoPoint(this, ray.getPoint(t1)));
+			} else {
+				return null;
+			}
+		if (alignZero(t1 - maxDistance) <= 0 && alignZero(t2 - maxDistance) <= 0)
+			return List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
+		if (alignZero(t2 - maxDistance) <= 0) 
+			return List.of(new GeoPoint(this, ray.getPoint(t2)));
+		if (alignZero(t1 - maxDistance) <= 0) 
 			return List.of(new GeoPoint(this, ray.getPoint(t1)));
-		return List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
+		return  null;
+		
 	}
 
 }

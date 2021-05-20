@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import geometries.*;
+import static geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -117,6 +118,20 @@ public class PolygonTests {
 	// TC06:the intersection with the plane on the continuation of edge
 	assertNull("Ray doesn't cross the triangle",polygon.findIntersections(new Ray(new Point3D(6,5,4), new Vector(-5,0,-3))));
 	}
-
+	/**
+	 * Test method for {@link geometries.Polygon#findGeoIntersections(primitives.Ray, double)}.
+	 */
+	@Test
+	public void testFindGeoIntersections() {
+		Polygon polygon=new Polygon(new Point3D(-4,1,1),new Point3D(-4,-2,1),new Point3D(-1,-5,1),new Point3D(0,0,1),new Point3D(-2,1,1))	;
+		// ============ Equivalence Partitions Tests ==============
+		// TC01:1 intersection
+		List<GeoPoint> result= polygon.findGeoIntersections(new Ray(new Point3D(6,5,4), new Vector(-7,-6,-3)),10);
+		assertEquals("Ray crosses triangle",List.of(new GeoPoint(polygon, new Point3D(-1,-1,1))), result);
+		//TC02: no intersections
+		result= polygon.findGeoIntersections(new Ray(new Point3D(6,5,4), new Vector(-7,-6,-3)),3);
+		assertNull("Ray crosses triangle", result);
+		
+	}
 }
 
