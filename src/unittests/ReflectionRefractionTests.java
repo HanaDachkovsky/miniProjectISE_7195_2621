@@ -157,7 +157,6 @@ public class ReflectionRefractionTests {
 								.setEmission(new Color(223, 148, 50)) //
 								.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(60)));
  
-		
 		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point3D(60, 50, 0), new Vector(0, 0, -1)) //
 				.setKl(4E-5).setKq(2E-7));
 		// scene.lights.add(new DirectionalLight(new Color(500, 200, 0), new
