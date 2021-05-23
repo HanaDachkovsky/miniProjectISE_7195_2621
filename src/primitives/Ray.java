@@ -14,6 +14,11 @@ import geometries.Intersectable.GeoPoint;
 public class Ray {
 	private Point3D p0;
 	private Vector dir;
+	/**
+	 * the distance to move the points over the geometries in order to prevent
+	 * intersections with the geometry itself
+	 */
+	private static final double DELTA = 0.1;
 
 	/**
 	 * @return the p0
@@ -37,6 +42,12 @@ public class Ray {
 		this.p0 = p0;
 		this.dir = dir.normalized();
 	}
+	public Ray(Point3D head, Vector direction, Vector normal) {
+		Vector delta = normal.scale(normal.dotProduct(direction) > 0 ? DELTA : -DELTA);
+		this.p0 = head.add(delta);
+		this.dir = direction.normalized();
+	}
+
 
 	@Override
 	public boolean equals(Object obj) {
