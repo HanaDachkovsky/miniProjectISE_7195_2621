@@ -4,7 +4,9 @@ package unittests;
 import org.junit.Test;
 
 import elements.*;
-import geometries.*;
+import geometries.Polygon;
+import geometries.Sphere;
+import geometries.Triangle;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
@@ -27,10 +29,10 @@ public class ReflectionRefractionTests {
 				.setViewPlaneSize(150, 150).setDistance(1000);
 
 		scene.geometries.add( //
-				new Sphere(new Point3D(0, 0, -50), 50) //
+				new Sphere( new Point3D(0, 0, -50),50) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.4).setKs(0.3).setnShininess(100).setKt(0.3)),
-				new Sphere(new Point3D(0, 0, -50), 25) //
+				new Sphere( new Point3D(0, 0, -50),25) //
 						.setEmission(new Color(java.awt.Color.RED)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(100)));
 		scene.lights.add( //
@@ -56,10 +58,10 @@ public class ReflectionRefractionTests {
 		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
 		scene.geometries.add( //
-				new Sphere(new Point3D(-950, -900, -1000), 400) //
+				new Sphere( new Point3D(-950, -900, -1000),400) //
 						.setEmission(new Color(0, 0, 100)) //
 						.setMaterial(new Material().setKd(0.25).setKs(0.25).setnShininess(20).setKt(0.5)),
-				new Sphere(new Point3D(-950, -900, -1000), 200) //
+				new Sphere( new Point3D(-950, -900, -1000),200) //
 						.setEmission(new Color(100, 20, 20)) //
 						.setMaterial(new Material().setKd(0.25).setKs(0.25).setnShininess(20)),
 				new Triangle(new Point3D(1500, -1500, -1500), new Point3D(-1500, 1500, -1500),
@@ -89,7 +91,7 @@ public class ReflectionRefractionTests {
 	 * transparent Sphere producing partial shadow
 	 */
 	@Test
-	public void transparentPicture() {
+	public void trianglesTransparentSphere() {
 		Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setViewPlaneSize(200, 200).setDistance(1000);
 
@@ -100,14 +102,14 @@ public class ReflectionRefractionTests {
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(60)), //
 				new Triangle(new Point3D(-150, -150, -115), new Point3D(-70, 70, -140), new Point3D(75, 75, -150)) //
 						.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(60)), //
-				new Sphere(new Point3D(60, 50, -50), 30) //
+				new Sphere( new Point3D(60, 50, -50),30) //
 						.setEmission(new Color(java.awt.Color.BLUE)) //
 						.setMaterial(new Material().setKd(0.2).setKs(0.2).setnShininess(30).setKt(0.6)));
 
 		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point3D(60, 50, 0), new Vector(0, 0, -1)) //
 				.setKl(4E-5).setKq(2E-7));
 
-		ImageWriter imageWriter = new ImageWriter("transparentPicture", 600, 600);
+		ImageWriter imageWriter = new ImageWriter("refractionShadow", 600, 600);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
@@ -121,7 +123,7 @@ public class ReflectionRefractionTests {
 	 * 
 	 */
 	@Test
-	public void trianglesTransparentSphere() {
+	public void transparentPicture() {
 		scene.setBackground(new Color(171, 236, 251));
 		Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setViewPlaneSize(200, 200).setDistance(1000);
@@ -160,7 +162,7 @@ public class ReflectionRefractionTests {
 		// scene.lights.add(new DirectionalLight(new Color(500, 200, 0), new
 		// Vector(-2,-1,0)));
 
-		ImageWriter imageWriter = new ImageWriter("refractionShadow", 600, 600);
+		ImageWriter imageWriter = new ImageWriter("transparentPicture", 600, 600);
 		Render render = new Render().setImageWriter(imageWriter).setCamera(camera)
 				.setRayTracer(new RayTracerBasic(scene));
 
