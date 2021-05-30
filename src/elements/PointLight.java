@@ -3,6 +3,7 @@
  */
 package elements;
 
+
 import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
@@ -16,6 +17,7 @@ public class PointLight extends Light implements LightSource {
 	private double kC=1;
 	private double kL=0;
 	private double kQ=0;
+	private double raduis=1;
 
 	/**
 	 * @param intensity-the intensity of light in the point
@@ -25,6 +27,21 @@ public class PointLight extends Light implements LightSource {
 	public PointLight(Color intensity, Point3D position) {
 		super(intensity);
 		this.position = position;
+	}
+
+	/**
+	 * @return the raduis
+	 */
+	public double getRaduis() {
+		return raduis;
+	}
+
+	/**
+	 * @param raduis the raduis to set
+	 */
+	public PointLight setRaduis(double raduis) {
+		this.raduis = raduis;
+		return this;
 	}
 
 	@Override
@@ -65,5 +82,13 @@ public class PointLight extends Light implements LightSource {
 	public double getDistance(Point3D point) {
 		return point.distance(position);
 	}
+
+	/**
+	 * @return the position
+	 */
+	public Point3D getPosition() {
+		return position;
+	}
+
 
 }

@@ -5,12 +5,17 @@ package renderer;
 
 import java.util.List;
 
+import elements.DirectionalLight;
 import elements.LightSource;
+import elements.PointLight;
+import elements.SpotLight;
 import geometries.Intersectable.GeoPoint;
 
 import geometries.*;
 import primitives.*;
 import scene.*;
+
+import static java.lang.System.out;
 import static primitives.Util.*;
 
 /**
@@ -21,6 +26,8 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private static final double INITIAL_K = 1.0;
+	private boolean improve = false;
+	private int numberRays = 20;
 
 	/**
 	 * ctor
@@ -52,8 +59,13 @@ public class RayTracerBasic extends RayTracerBase {
 		for (LightSource lightSource : scene.lights) {
 			Vector l = lightSource.getL(intersection.point);
 			double nl = alignZero(n.dotProduct(l));
+			// double ktr = averageTransparency(lightSource, l, n, intersection);
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
-				double ktr = transparency(lightSource, l, n, intersection);
+				double ktr;
+				if (improve == true)
+					ktr = averageTransparency(lightSource, l, n, intersection);
+				else
+					ktr = transparency(lightSource, l, n, intersection);
 				if (ktr * k > MIN_CALC_COLOR_K) {
 					Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
 					color = color.add(calcDiffusive(kd, nl, lightIntensity),
@@ -62,6 +74,39 @@ public class RayTracerBasic extends RayTracerBase {
 			}
 		}
 		return color;
+	}
+
+	private double averageTransparency(LightSource lightSource, Vector l, Vector n, GeoPoint intersection) {
+		if (lightSource instanceof DirectionalLight)
+			return transparency(lightSource, l, n, intersection);
+		Vector noraml;
+		if (lightSource instanceof SpotLight)
+			noraml = ((SpotLight) lightSource).getDirection();
+		else
+			noraml = l;
+		Vector u = noraml.orthogonal();
+		Vector v = noraml.crossProduct(u).normalize();
+		Point3D p = ((PointLight) lightSource).getPosition();
+		double r = ((PointLight) lightSource).getRaduis();
+		double sum = 0;
+		int counter = 0;
+		double jump = Math.sqrt(Math.PI * r * r / numberRays);
+		Point3D point = p.add(u.scale(-r));
+		for (double i = 0; i < 2 * r / jump; i++) {
+			double lenght = alignZero(Math.sqrt(r * r - p.distanceSquared(point)));
+			Point3D point2=point;
+			if (lenght != 0)
+				point2 = point.add(v.scale(-lenght));
+			for (int j = 0; j < 2 * lenght / jump; j++) {
+				sum += transparency(lightSource, intersection.point.subtract(point2).normalize(), noraml, intersection);
+				counter++;
+				point2 = point2.add(v.scale(jump));
+			}
+			point = point.add(u.scale(jump));
+		}
+		sum += transparency(lightSource, l, n, intersection);
+		counter++;
+		return sum / counter;
 	}
 
 	private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess,
@@ -98,9 +143,10 @@ public class RayTracerBasic extends RayTracerBase {
 
 	/**
 	 * functions that calculates the amount of shadow in point
-	 * @param light light source
-	 * @param l the vector of light source
-	 * @param n the normal to point
+	 * 
+	 * @param light    light source
+	 * @param l        the vector of light source
+	 * @param n        the normal to point
 	 * @param geopoint the point to calculate shadow
 	 * @return the amount of shadow in point
 	 */
@@ -153,7 +199,7 @@ public class RayTracerBasic extends RayTracerBase {
 	private Color calcColor(GeoPoint geopoint, Ray ray, int maxCalcColorLevel, double initialK) {
 		Vector n = geopoint.geometry.getNormal(geopoint.point);
 		Color color = geopoint.geometry.getEmission();
-		color = color.add(calcLocalEffects(geopoint, ray, n,initialK));
+		color = color.add(calcLocalEffects(geopoint, ray, n, initialK));
 		return 1 == maxCalcColorLevel ? color
 				: color.add(calcGlobalEffects(geopoint, ray, maxCalcColorLevel, initialK, n));
 
@@ -182,6 +228,29 @@ public class RayTracerBasic extends RayTracerBase {
 				color = color.add(scene.background.scale(kt));
 		}
 		return color;
+	}
+
+	/**
+	 * @param improve the improve to set
+	 */
+	public RayTracerBasic setImprove() {
+		this.improve = true;
+		return this;
+	}
+
+	/**
+	 * @return the numberRays
+	 */
+	public int getNumberRays() {
+		return numberRays;
+	}
+
+	/**
+	 * @param numberRays the numberRays to set
+	 */
+	public RayTracerBasic setNumberRays(int numberRays) {
+		this.numberRays = numberRays;
+		return this;
 	}
 
 }

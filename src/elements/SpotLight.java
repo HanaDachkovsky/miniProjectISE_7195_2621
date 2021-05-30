@@ -34,6 +34,13 @@ public class SpotLight extends PointLight {
 			return Color.BLACK;
 		}
 	}
+	/**
+	 * @return the direction
+	 */
+	public Vector getDirection() {
+		return direction;
+	}
+	
  
 
 }
