@@ -76,37 +76,47 @@ public class RayTracerBasic extends RayTracerBase {
 		return color;
 	}
 
+	/**
+	 * function that casts beam of ray in a circle around the light source
+	 * 
+	 * @param lightSource  the light source
+	 * @param l            the vector of light
+	 * @param n            normal to point
+	 * @param intersection the point of geometry
+	 * @return average of ktr
+	 */
 	private double averageTransparency(LightSource lightSource, Vector l, Vector n, GeoPoint intersection) {
+		double sum = 0;// sum of ktr
+		int counter = 1;// amount of ray
+		sum += transparency(lightSource, l, n, intersection);// the original ray
 		if (lightSource instanceof DirectionalLight)
-			return transparency(lightSource, l, n, intersection);
+			return sum;
 		Vector noraml;
-		if (lightSource instanceof SpotLight)
+		if (lightSource instanceof SpotLight)// in spot light the light source is orthogonal to its direction
 			noraml = ((SpotLight) lightSource).getDirection();
 		else
 			noraml = l;
 		Vector u = noraml.orthogonal();
-		Vector v = noraml.crossProduct(u).normalize();
-		Point3D p = ((PointLight) lightSource).getPosition();
-		double r = ((PointLight) lightSource).getRaduis();
-		double sum = 0;
-		int counter = 0;
-		double jump = Math.sqrt(Math.PI * r * r / numberRays);
-		Point3D point = p.add(u.scale(-r));
+		Vector v = noraml.crossProduct(u).normalize();// orthogonal base to the light source's plane
+		Point3D p = ((PointLight) lightSource).getPosition();// center of light source
+		double r = ((PointLight) lightSource).getRaduis();// radius
+		double jump = Math.sqrt(Math.PI * r * r / numberRays);// the distance between 2 close points- according to the
+																// number of rays and area of circle
+		Point3D point = p.add(u.scale(-r));// 1 axis
 		for (double i = 0; i < 2 * r / jump; i++) {
-			double lenght = alignZero(Math.sqrt(r * r - p.distanceSquared(point)));
-			Point3D point2=point;
+			double lenght = alignZero(Math.sqrt(r * r - p.distanceSquared(point)));// according to Pythagoras- the
+																					// distance on axis 2
+			Point3D point2 = point;//the point in space
 			if (lenght != 0)
-				point2 = point.add(v.scale(-lenght));
+				point2 = point.add(v.scale(-lenght));//edge of axis2
 			for (int j = 0; j < 2 * lenght / jump; j++) {
 				sum += transparency(lightSource, intersection.point.subtract(point2).normalize(), noraml, intersection);
 				counter++;
-				point2 = point2.add(v.scale(jump));
+				point2 = point2.add(v.scale(jump));//jump in axis 2
 			}
-			point = point.add(u.scale(jump));
+			point = point.add(u.scale(jump));//jump in axis 1
 		}
-		sum += transparency(lightSource, l, n, intersection);
-		counter++;
-		return sum / counter;
+		return sum / counter;//return average
 	}
 
 	private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess,

@@ -161,12 +161,9 @@ public class Vector {
 	public Vector orthogonal() {
 		double A = alignZero(head.getX());
 		double B = alignZero(head.getY());
-		double C = alignZero(head.getZ());
-		if (C != 0)
-			return new Vector(1, 0, -A / C).normalize();
-		else if (B != 0)
-			return new Vector(1, -A / B, 0).normalize();
-		return new Vector(0, 1, 0).normalize();
+		if(A==0&&B==0)
+			return new Vector(1, 1, 0).normalize();
+		return new Vector(B, -A, 0).normalize();
 
 	}
 
