@@ -26,7 +26,7 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private static final double INITIAL_K = 1.0;
-	private boolean improve = false;
+	private boolean improveSoftSadows = false;
 	private int numberRays = 20;
 
 	/**
@@ -243,8 +243,8 @@ public class RayTracerBasic extends RayTracerBase {
 	/**
 	 * @param improve the improve to set
 	 */
-	public RayTracerBasic setImprove() {
-		this.improve = true;
+	public RayTracerBasic setImproveSoftSadows() {
+		this.improveSoftSadows = true;
 		return this;
 	}
 

@@ -17,7 +17,7 @@ public class SoftShadowsTests {
 	private Scene scene = new Scene("Test scene");
 
 	/**
-	 * 
+	 * soft shadows improvement picture
 	 */
 	@Test
 	public void softTest() {
@@ -77,7 +77,7 @@ public class SoftShadowsTests {
 		render = new Render() //
 				.setImageWriter(new ImageWriter("softShadowsWithImprovement", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene).setImprove().setNumberRays(500)).setDebugPrint()
+				.setRayTracer(new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500)).setDebugPrint()
 				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
