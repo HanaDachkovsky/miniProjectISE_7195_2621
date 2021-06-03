@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import geometries.Intersectable.Box;
+
+import static geometries.Intersectable.GeoPoint;
 import primitives.Point3D;
 import primitives.Ray;
 
@@ -15,7 +18,7 @@ import primitives.Ray;
  * Geometries is a collection of geometries.
  *
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 	private List<Intersectable> listOfShapes;
 
 	/**
@@ -26,6 +29,8 @@ public class Geometries implements Intersectable {
 		//or to delete from geometries
 		//and the time of adding to LinkedList is O(1)
 		listOfShapes = new LinkedList<>();
+		box = new Box(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
+				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
 	}
 
 	/**
@@ -34,6 +39,11 @@ public class Geometries implements Intersectable {
 	 */
 	public Geometries(Intersectable... geometries) {
 		listOfShapes = new LinkedList<Intersectable>(Arrays.asList(geometries));
+		box = new Box(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
+				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+		for (Intersectable shape : geometries) {
+			box.resize(shape.getBox());
+		}
 	}
 	
 	/**
@@ -44,6 +54,9 @@ public class Geometries implements Intersectable {
 	public void add(Intersectable... geometries) {
 		List<Intersectable> list = Arrays.asList(geometries);
 		listOfShapes.addAll(list);
+		for (Intersectable shape : geometries) {
+			box.resize(shape.getBox());
+		}
 	}
 
 	

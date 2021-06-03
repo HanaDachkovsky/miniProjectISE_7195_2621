@@ -27,6 +27,7 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private static final double INITIAL_K = 1.0;
 	private boolean improveSoftSadows = false;
+	private boolean improveBoundingRegion = false;
 	private int numberRays = 20;
 
 	/**
@@ -62,7 +63,7 @@ public class RayTracerBasic extends RayTracerBase {
 			// double ktr = averageTransparency(lightSource, l, n, intersection);
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
 				double ktr;
-				if (improve == true)
+				if (improveSoftSadows == true)
 					ktr = averageTransparency(lightSource, l, n, intersection);
 				else
 					ktr = transparency(lightSource, l, n, intersection);
@@ -106,17 +107,17 @@ public class RayTracerBasic extends RayTracerBase {
 		for (double i = 0; i < 2 * r / jump; i++) {
 			double lenght = alignZero(Math.sqrt(r * r - p.distanceSquared(point)));// according to Pythagoras- the
 																					// distance on axis 2
-			Point3D point2 = point;//the point in space
+			Point3D point2 = point;// the point in space
 			if (lenght != 0)
-				point2 = point.add(v.scale(-lenght));//edge of axis2
+				point2 = point.add(v.scale(-lenght));// edge of axis2
 			for (int j = 0; j < 2 * lenght / jump; j++) {
 				sum += transparency(lightSource, intersection.point.subtract(point2).normalize(), noraml, intersection);
 				counter++;
-				point2 = point2.add(v.scale(jump));//jump in axis 2
+				point2 = point2.add(v.scale(jump));// jump in axis 2
 			}
-			point = point.add(u.scale(jump));//jump in axis 1
+			point = point.add(u.scale(jump));// jump in axis 1
 		}
-		return sum / counter;//return average
+		return sum / counter;// return average
 	}
 
 	private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess,
@@ -163,7 +164,12 @@ public class RayTracerBasic extends RayTracerBase {
 	private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(geopoint.point, lightDirection, n);
-		var intersections = scene.geometries.findGeoIntersections(lightRay, light.getDistance(geopoint.point));
+		List<GeoPoint> intersections;
+		if (improveBoundingRegion == false)
+			intersections = scene.geometries.findGeoIntersections(lightRay, light.getDistance(geopoint.point));
+		else 
+			intersections = scene.geometries.findGeoIntersectionsBox(lightRay, light.getDistance(geopoint.point));
+		
 		if (intersections == null)
 			return 1.0;
 		double ktr = 1.0;
@@ -191,7 +197,11 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the closest intersection
 	 */
 	GeoPoint findClosestIntersection(Ray ray) {
-		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
+		List<GeoPoint> intersections;
+		if (improveBoundingRegion == false)
+			intersections = scene.geometries.findGeoIntersections(ray);
+		else
+			intersections = scene.geometries.findGeoIntersectionsBox(ray);
 		if (intersections == null)
 			return null;
 		return ray.findClosestGeoPoint(intersections);
@@ -260,6 +270,15 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	public RayTracerBasic setNumberRays(int numberRays) {
 		this.numberRays = numberRays;
+		return this;
+	}
+
+
+	/**
+	 * @param improveBoundingRegion the improveBoundingRegion to set
+	 */
+	public RayTracerBasic setImproveBoundingRegion() {
+		this.improveBoundingRegion = true;
 		return this;
 	}
 

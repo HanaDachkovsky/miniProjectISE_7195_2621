@@ -27,6 +27,13 @@ public class Plane extends Geometry {
 	public Plane(Point3D p0, Vector normal) {
 		this.p0 = p0;
 		this.normal = normal;
+		resetBox();
+	}
+
+	private void resetBox() {
+		box = new Box(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
+				Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+
 	}
 
 	/**
@@ -41,6 +48,7 @@ public class Plane extends Geometry {
 		Vector v1 = p2.subtract(p1);
 		Vector v2 = p3.subtract(p1);
 		this.normal = (v1.crossProduct(v2)).normalize();
+		resetBox();
 	}
 
 	@Override
@@ -84,7 +92,7 @@ public class Plane extends Geometry {
 		double t = alignZero(
 				(this.normal.dotProduct(this.p0.subtract(ray.getP0()))) / this.normal.dotProduct(ray.getDir()));
 		if (t > 0)
-			if (alignZero(t-maxDistance) <= 0)
+			if (alignZero(t - maxDistance) <= 0)
 				return List.of(new GeoPoint(this, ray.getPoint(t)));
 		return null;
 	}

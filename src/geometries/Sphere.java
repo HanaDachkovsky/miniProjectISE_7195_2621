@@ -30,6 +30,8 @@ public class Sphere extends Geometry {
 	public Sphere(Point3D center, double radius) {
 		this.center = center;
 		this.radius = radius;
+		box = new Box(center.getX() - radius, center.getY() - radius, center.getZ() - radius, center.getX() + radius,
+				center.getY() + radius, center.getZ() + radius);
 	}
 
 	public Point3D getCenter() {
@@ -104,12 +106,12 @@ public class Sphere extends Geometry {
 			}
 		if (alignZero(t1 - maxDistance) <= 0 && alignZero(t2 - maxDistance) <= 0)
 			return List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
-		if (alignZero(t2 - maxDistance) <= 0) 
+		if (alignZero(t2 - maxDistance) <= 0)
 			return List.of(new GeoPoint(this, ray.getPoint(t2)));
-		if (alignZero(t1 - maxDistance) <= 0) 
+		if (alignZero(t1 - maxDistance) <= 0)
 			return List.of(new GeoPoint(this, ray.getPoint(t1)));
-		return  null;
-		
+		return null;
+
 	}
 
 }

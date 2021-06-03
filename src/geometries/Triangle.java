@@ -5,12 +5,15 @@ package geometries;
 
 import java.util.List;
 
+import geometries.Intersectable.Box;
+
 //import org.graalvm.compiler.nodes.ReturnNode;
 
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 import static primitives.Util.*;
+import static geometries.Intersectable.GeoPoint;
 
 /**
  * represents a triangle in space

@@ -5,7 +5,7 @@ import primitives.*;
  * @author Hana Dachkovsky and Sara Tamar Amitai
  *
  */
-public abstract class Geometry implements Intersectable {
+public abstract class Geometry extends Intersectable {
 	protected Color emission=Color.BLACK;
 	private Material material=new Material();
 	/**

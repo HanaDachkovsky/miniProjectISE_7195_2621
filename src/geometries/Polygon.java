@@ -3,7 +3,6 @@ package geometries;
 import java.util.List;
 import primitives.*;
 
-
 import static primitives.Util.*;
 
 /**
@@ -81,6 +80,12 @@ public class Polygon extends Geometry {
 			if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
 				throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
 		}
+		box = new Box(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
+				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+		for (Point3D p : vertices) {
+			box.resize(p.getX(), p.getY(), p.getZ());
+
+		}
 	}
 
 	@Override
@@ -88,8 +93,6 @@ public class Polygon extends Geometry {
 		return plane.getNormal();
 	}
 
-	
-	
 //	@Override
 //	public List<GeoPoint> findGeoIntersections(Ray ray) {
 //		if(this.plane.findIntersections(ray)==null)
@@ -118,34 +121,29 @@ public class Polygon extends Geometry {
 
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
-		if(this.plane.findIntersections(ray)==null)
+		if (this.plane.findIntersections(ray) == null)
 			return null;
-		Boolean plus=false;
-		for(int i=0;i<this.vertices.size();i++)
-		{
-			Vector vi=this.vertices.get(i).subtract(ray.getP0());//vector from the p0 of ray to each vertex
-			Vector vii=this.vertices.get((i+1)%this.vertices.size()).subtract(ray.getP0());//vector to the next
-			Vector Ni=vi.crossProduct(vii);//cross product between each 2
-			double multy=ray.getDir().dotProduct(Ni);//check if all are in the same sign 
-			if(isZero(multy))						// and no one is zero
+		Boolean plus = false;
+		for (int i = 0; i < this.vertices.size(); i++) {
+			Vector vi = this.vertices.get(i).subtract(ray.getP0());// vector from the p0 of ray to each vertex
+			Vector vii = this.vertices.get((i + 1) % this.vertices.size()).subtract(ray.getP0());// vector to the next
+			Vector Ni = vi.crossProduct(vii);// cross product between each 2
+			double multy = ray.getDir().dotProduct(Ni);// check if all are in the same sign
+			if (isZero(multy)) // and no one is zero
 				return null;
-			if(i==0)
-				plus=(multy>0);
+			if (i == 0)
+				plus = (multy > 0);
 			else {
-				if(plus!=(multy>0))
+				if (plus != (multy > 0))
 					return null;
 			}
-			
+
 		}
-		List<GeoPoint> list=this.plane.findGeoIntersections(ray,maxDistance);
-		if(list==null)
+		List<GeoPoint> list = this.plane.findGeoIntersections(ray, maxDistance);
+		if (list == null)
 			return null;
-		list.forEach(shape->shape.geometry=this);
+		list.forEach(shape -> shape.geometry = this);
 		return list;
 	}
 
-	
 }
-
-	
-

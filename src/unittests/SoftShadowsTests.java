@@ -71,13 +71,13 @@ public class SoftShadowsTests {
 		Render render = new Render() //
 				.setImageWriter(new ImageWriter("softShadowsBeforeImprovement", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene)).setDebugPrint().setMultithreading(3);
+				.setRayTracer(new RayTracerBasic(scene).setImproveBoundingRegion()).setDebugPrint().setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
 		render = new Render() //
 				.setImageWriter(new ImageWriter("softShadowsWithImprovement", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500)).setDebugPrint()
+				.setRayTracer(new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500).setImproveBoundingRegion()).setDebugPrint()
 				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
