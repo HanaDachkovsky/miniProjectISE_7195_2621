@@ -103,7 +103,7 @@ public class BoundingTests {
 				.setImageWriter(new ImageWriter("boundingWithImprovement", 600, 600)) //
 				.setCamera(camera) //
 				.setRayTracer(
-						new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500).setImproveBoundingRegion())
+						new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500))
 				.setDebugPrint().setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
