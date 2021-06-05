@@ -11,7 +11,7 @@ import scene.Scene;
 /**
  * Testing basic shadows
  * 
- * @author Dan
+ * @author 
  */
 public class SoftShadowsTests {
 	private Scene scene = new Scene("Test scene");
