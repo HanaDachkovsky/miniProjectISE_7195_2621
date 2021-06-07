@@ -100,56 +100,59 @@ public class Geometries extends Intersectable {
 			throw new IllegalArgumentException("k has to be more than 1");
 		if (k > listOfShapes.size())
 			k = listOfShapes.size() / 2;
-		Map<Point3D, List<Intersectable>> map = new HashMap<Point3D, List<Intersectable>>();
+		List<Point3D>centers=new ArrayList<>();
+		List<ArrayList<Intersectable>> listOfLists = new ArrayList<ArrayList<Intersectable>>();
 		int i = 0;
 		int jump = (int) Math.ceil(listOfShapes.size() / k);
 		for (Intersectable geo : listOfShapes) {
-			if (i % jump == 0)
-				map.put(geo.getBox().getCenter(), new LinkedList<>());
+			if (i % jump == 0) {
+				centers.add(geo.getBox().getCenter());
+				listOfLists.add(new ArrayList<Intersectable>());
+				}
 			i++;
 		}
-		if (map.size() != k)
+		if (listOfLists.size() != k)
 			throw new IllegalAccessError();
 		boolean isLoop = true;
 		while (isLoop) {
 			isLoop = false;
-			for (Point3D key : map.keySet())
-				map.get(key).clear();
+			for (var list : listOfLists)
+				list.clear();
 			for (Intersectable shape : listOfShapes) {
 				double minDistance = Double.POSITIVE_INFINITY;
-				Point3D minKey = null;
-				for (Point3D key : map.keySet()) {
-					double distance = shape.getBox().distance(key);
+				Point3D minCenter = null;
+				for (Point3D cen : centers) {
+					double distance = shape.getBox().distance(cen);
 					if (distance < minDistance) {
 						minDistance = distance;
-						minKey = key;
+						minCenter = cen;
 					}
 				}
-				map.get(minKey).add(shape);
+				listOfLists.get(centers.indexOf(minCenter)).add(shape);
 			}
-			for (Point3D key : map.keySet()) {
+			for (var list : listOfLists) {
 				double sumX = 0;
 				double sumY = 0;
 				double sumZ = 0;
-				for (Intersectable geo : map.get(key)) {
+				for (Intersectable geo : list) {
 					Point3D center = geo.getBox().getCenter();
 					sumX += center.getX();
 					sumY += center.getY();
 					sumZ += center.getZ();
 				}
-				int len = map.get(key).size();
+				int len = list.size();
 				Point3D center = new Point3D(sumX / len, sumY / len, sumZ / len);
-				if (!center.equals(key)) {
+				if (!center.equals(centers.get(listOfLists.indexOf(list)))) {
 					isLoop = true;
-					map.put(center, map.remove(key));
+					centers.set(listOfLists.indexOf(list), center);
 				}
 
 			}
 		}
 		listOfShapes.clear();
-		for (Point3D key : map.keySet()) {
+		for (var list:listOfLists) {
 			Geometries geometries=new Geometries();
-			for(Intersectable geo:map.get(key))
+			for(Intersectable geo:list)
 				geometries.add(geo);
 			listOfShapes.add(geometries);
 		}
