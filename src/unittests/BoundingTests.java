@@ -44,8 +44,9 @@ public class BoundingTests {
 		List<Point3D> moves = List.of(new Point3D(0, 0, 0), new Point3D(100, 100, 100), new Point3D(-100, 120, -90),
 				new Point3D(-150, -185 - 30, 130), new Point3D(0, 0, -200));
 		for (Point3D move : moves) {
-			Geometries geometriesGroup=new Geometries();
-			geometriesGroup.add( //
+//			Geometries geometriesGroup=new Geometries();
+//			geometriesGroup.add( 
+			scene.geometries.add(
 					new Polygon(new Point3D(200 + move.getX(), 200 + move.getY(), 0 + move.getZ()),
 							new Point3D(200 + move.getX(), -200 + move.getY(), 0 + move.getZ()),
 							new Point3D(-200 + move.getX(), -200 + move.getY(), 0 + move.getZ()),
@@ -82,8 +83,9 @@ public class BoundingTests {
 					new Sphere(new Point3D(-30 + move.getX(), 50 + move.getY(), 20 + move.getZ()), 20) //
 							.setEmission(new Color(java.awt.Color.DARK_GRAY)) //
 							.setMaterial(new Material().setKd(0.5).setKs(0.5).setnShininess(30)));
-			scene.geometries.add(geometriesGroup);
+			// scene.geometries.add(geometriesGroup);
 		}
+		scene.geometries.kMeansBoxes(5);
 		scene.lights.add(new SpotLight(new Color(700, 700, 700), new Point3D(200, -200, 200), new Vector(-1, 1, -1)) //
 				.setKl(4E-4).setKq(2E-5).setRaduis(30));
 		scene.lights.add(new DirectionalLight(new Color(100, 100, 100), new Vector(-1, 1, -1)));
@@ -93,8 +95,8 @@ public class BoundingTests {
 				.setKl(4E-4).setKq(2E-5).setRaduis(30));
 		scene.lights.add(new PointLight(new Color(250, 250, 250), new Point3D(0, 150, 50)) //
 				.setKl(0.0005).setKq(0.0005));
-		
-		//);
+
+		// );
 
 //		Render render = new Render() //
 //				.setImageWriter(new ImageWriter("boundingBeforeImprovement", 600, 600)) //
@@ -105,9 +107,8 @@ public class BoundingTests {
 		Render render = new Render() //
 				.setImageWriter(new ImageWriter("boundingWithImprovement", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(
-						new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500))
-				.setDebugPrint().setMultithreading(3);
+				.setRayTracer(new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500)).setDebugPrint()
+				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
 	}

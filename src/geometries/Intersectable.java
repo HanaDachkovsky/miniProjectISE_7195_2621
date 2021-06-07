@@ -158,6 +158,16 @@ public abstract class Intersectable {
 			resize(box.minX, box.minY, box.minZ);
 			resize(box.maxX, box.maxY, box.maxZ);
 		}
+
+		public Point3D getCenter() {
+			return new Point3D((minX+maxX)/2, (minY+maxY)/2, (minZ+maxZ)/2);
+		}
+
+		public double distance(Point3D key) {
+			double dis=getCenter().distance(key);
+			return dis<0 ?0:dis;
+			
+		}
 	}
 
 	/**
