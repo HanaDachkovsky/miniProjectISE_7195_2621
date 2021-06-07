@@ -9,7 +9,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.SizeLimitExceededException;
+
+import org.w3c.dom.ranges.RangeException;
+
 import geometries.Intersectable.Box;
+import jdk.jfr.events.ErrorThrownEvent;
 
 import static geometries.Intersectable.GeoPoint;
 import primitives.Point3D;
@@ -95,30 +100,37 @@ public class Geometries extends Intersectable {
 		return allInter;
 	}
 
-	public void kMeansBoxes(int k) {
+	/**
+	 * Divides the geometries to groups by distance by algorithm k means
+	 * @param k the number of groups
+	 */
+	public void kMeansBoxes(int k)  {
 		if (k <= 1)
 			throw new IllegalArgumentException("k has to be more than 1");
-		if (k > listOfShapes.size())
+		if (k > listOfShapes.size())// k has to be less than number of shapes
 			k = listOfShapes.size() / 2;
-		List<Point3D>centers=new ArrayList<>();
-		List<ArrayList<Intersectable>> listOfLists = new ArrayList<ArrayList<Intersectable>>();
-		int i = 0;
-		int jump = (int) Math.ceil(listOfShapes.size() / k);
-		for (Intersectable geo : listOfShapes) {
-			if (i % jump == 0) {
+		List<Point3D> centers = new ArrayList<>();// array of centers for each group of shapes
+		List<ArrayList<Intersectable>> listOfLists = new ArrayList<ArrayList<Intersectable>>();// list of all groups
+		int i = 0;// index of the shape in
+		int counter = 0;// count from 0 to k centers
+		int jump = (int) (listOfShapes.size() / k);// jump for "random" choice of k centers
+		for (Intersectable geo : listOfShapes) {// "random" choice of k centers
+			if (i % jump == 0 && counter < k) {
+				counter++;
 				centers.add(geo.getBox().getCenter());
-				listOfLists.add(new ArrayList<Intersectable>());
-				}
+				listOfLists.add(new ArrayList<Intersectable>());// create new list for this group
+			}
 			i++;
 		}
-		if (listOfLists.size() != k)
-			throw new IllegalAccessError();
+		if (listOfLists.size() != k) 
+			throw new ArithmeticException("must k groups");
+		
 		boolean isLoop = true;
-		while (isLoop) {
+		while (isLoop) {// run while at least 1 center has changed
 			isLoop = false;
 			for (var list : listOfLists)
 				list.clear();
-			for (Intersectable shape : listOfShapes) {
+			for (Intersectable shape : listOfShapes) {// for each geo find the minimal distance and put in the group
 				double minDistance = Double.POSITIVE_INFINITY;
 				Point3D minCenter = null;
 				for (Point3D cen : centers) {
@@ -128,9 +140,9 @@ public class Geometries extends Intersectable {
 						minCenter = cen;
 					}
 				}
-				listOfLists.get(centers.indexOf(minCenter)).add(shape);
+				listOfLists.get(centers.indexOf(minCenter)).add(shape);// add to group
 			}
-			for (var list : listOfLists) {
+			for (var list : listOfLists) {// recalculate the centers of each group
 				double sumX = 0;
 				double sumY = 0;
 				double sumZ = 0;
@@ -142,17 +154,17 @@ public class Geometries extends Intersectable {
 				}
 				int len = list.size();
 				Point3D center = new Point3D(sumX / len, sumY / len, sumZ / len);
-				if (!center.equals(centers.get(listOfLists.indexOf(list)))) {
-					isLoop = true;
-					centers.set(listOfLists.indexOf(list), center);
+				if (!center.equals(centers.get(listOfLists.indexOf(list)))) {// if the center has changed-replace
+					isLoop = true;// run until no center changes
+					centers.set(listOfLists.indexOf(list), center);// replace the center with the new calculated center
 				}
 
 			}
 		}
 		listOfShapes.clear();
-		for (var list:listOfLists) {
-			Geometries geometries=new Geometries();
-			for(Intersectable geo:list)
+		for (var list : listOfLists) {// make k geometries
+			Geometries geometries = new Geometries();
+			for (Intersectable geo : list)
 				geometries.add(geo);
 			listOfShapes.add(geometries);
 		}

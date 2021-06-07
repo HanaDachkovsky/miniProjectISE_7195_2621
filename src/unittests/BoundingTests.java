@@ -2,6 +2,8 @@ package unittests;
 
 import java.util.List;
 
+import javax.naming.SizeLimitExceededException;
+
 import org.junit.Test;
 import org.junit.internal.runners.statements.FailOnTimeout;
 
@@ -30,10 +32,10 @@ public class BoundingTests {
 	private Scene scene = new Scene("Test scene");
 
 	/**
-	 * soft shadows improvement picture
+	 * soft shadows improvement picture 
 	 */
 	@Test
-	public void softTest() {
+	public void softTest()  {
 		int a = 250;
 		int b = 3000;
 		Vector vto = new Vector(-b, 0, -a);
@@ -107,7 +109,7 @@ public class BoundingTests {
 		Render render = new Render() //
 				.setImageWriter(new ImageWriter("boundingWithImprovement", 600, 600)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500)).setDebugPrint()
+				.setRayTracer(new RayTracerBasic(scene).setImproveSoftSadows().setNumberRays(500).setImproveBoundingRegion()).setDebugPrint()
 				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
