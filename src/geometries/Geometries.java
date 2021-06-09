@@ -1,25 +1,16 @@
 package geometries;
 
-import static java.lang.System.out;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import javax.naming.SizeLimitExceededException;
-
-import org.w3c.dom.ranges.RangeException;
-
-import geometries.Intersectable.Box;
-import jdk.jfr.events.ErrorThrownEvent;
-
-import static geometries.Intersectable.GeoPoint;
 import primitives.Point3D;
 import primitives.Ray;
-import primitives.Vector;
+
 
 /**
  * 

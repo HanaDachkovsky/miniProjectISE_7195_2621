@@ -46,8 +46,8 @@ public class BoundingTests {
 		List<Point3D> moves = List.of(new Point3D(0, 0, 0), new Point3D(100, 100, 100), new Point3D(-100, 120, -90),
 				new Point3D(-150, -185 - 30, 130), new Point3D(0, 0, -200));
 		for (Point3D move : moves) {
-//			Geometries geometriesGroup=new Geometries();
-//			geometriesGroup.add( 
+		//Geometries geometriesGroup=new Geometries();
+      	//geometriesGroup.add( 
 			scene.geometries.add(
 					new Polygon(new Point3D(200 + move.getX(), 200 + move.getY(), 0 + move.getZ()),
 							new Point3D(200 + move.getX(), -200 + move.getY(), 0 + move.getZ()),
