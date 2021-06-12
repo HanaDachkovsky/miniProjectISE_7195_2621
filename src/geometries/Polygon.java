@@ -50,8 +50,7 @@ public class Polygon extends Geometry {
 		// polygon with this plane.
 		// The plane holds the invariant normal (orthogonal unit) vector to the polygon
 		plane = new Plane(vertices[0], vertices[1], vertices[2]);
-		box = new Box(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
-				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+		box = new Box();
 		for (Point3D p : vertices) {
 			box.resize(p.getX(), p.getY(), p.getZ());
 

@@ -29,8 +29,7 @@ public class Geometries extends Intersectable {
 		// or to delete from geometries
 		// and the time of adding to LinkedList is O(1)
 		listOfShapes = new LinkedList<>();
-		box = new Box(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
-				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+		box = new Box();
 	}
 
 	/**
@@ -39,8 +38,7 @@ public class Geometries extends Intersectable {
 	 */
 	public Geometries(Intersectable... geometries) {
 		listOfShapes = new LinkedList<Intersectable>(Arrays.asList(geometries));
-		box = new Box(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
-				Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+		box = new Box();
 		for (Intersectable shape : geometries) {
 			box.resize(shape.getBox());
 		}
@@ -122,16 +120,8 @@ public class Geometries extends Intersectable {
 			for (var list : listOfLists)
 				list.clear();
 			for (Intersectable shape : listOfShapes) {// for each geo find the minimal distance and put in the group
-				double minDistance = Double.POSITIVE_INFINITY;
-				Point3D minCenter = null;
-				for (Point3D cen : centers) {
-					double distance = shape.getBox().distance(cen);
-					if (distance < minDistance) {
-						minDistance = distance;
-						minCenter = cen;
-					}
-				}
-				listOfLists.get(centers.indexOf(minCenter)).add(shape);// add to group
+				Point3D closeCenter = shape.getBox().findClosestPoint(centers);
+				listOfLists.get(centers.indexOf(closeCenter)).add(shape);// add to group
 			}
 			for (var list : listOfLists) {// recalculate the centers of each group
 				double sumX = 0;

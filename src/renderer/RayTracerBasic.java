@@ -104,18 +104,19 @@ public class RayTracerBasic extends RayTracerBase {
 		double jump = Math.sqrt(Math.PI * r * r / numberRays);// the distance between 2 close points- according to the
 																// number of rays and area of circle
 		Point3D point = p.add(u.scale(-r));// 1 axis
+		Vector vJump=v.scale(jump);	
+		Vector uJump=u.scale(jump);	
 		for (double i = 0; i < 2 * r / jump; i++) {
-			double lenght = alignZero(Math.sqrt(r * r - p.distanceSquared(point)));// according to Pythagoras- the
-																					// distance on axis 2
+			double lenght = alignZero(Math.sqrt(r * r - p.distanceSquared(point)));// according to Pythagoras- the															// distance on axis 2
 			Point3D point2 = point;// the point in space
 			if (lenght != 0)
 				point2 = point.add(v.scale(-lenght));// edge of axis2
 			for (int j = 0; j < 2 * lenght / jump; j++) {
 				sum += transparency(lightSource, intersection.point.subtract(point2).normalize(), noraml, intersection);
 				counter++;
-				point2 = point2.add(v.scale(jump));// jump in axis 2
+				point2 = point2.add(vJump);// jump in axis 2
 			}
-			point = point.add(u.scale(jump));// jump in axis 1
+			point = point.add(uJump);// jump in axis 1
 		}
 		return sum / counter;// return average
 	}

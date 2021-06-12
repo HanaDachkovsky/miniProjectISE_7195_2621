@@ -92,6 +92,14 @@ public abstract class Intersectable {
 		private double maxY;
 		private double maxZ;
 
+		public Box() {
+			this.minX = Double.POSITIVE_INFINITY;
+			this.minY = Double.POSITIVE_INFINITY;
+			this.minZ = Double.POSITIVE_INFINITY;
+			this.maxX = Double.NEGATIVE_INFINITY;
+			this.maxY = Double.NEGATIVE_INFINITY;
+			this.maxZ = Double.NEGATIVE_INFINITY;
+		}
 		public Box(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 			this.minX = minX;
 			this.minY = minY;
@@ -167,6 +175,18 @@ public abstract class Intersectable {
 			double dis=getCenter().distance(key);
 			return dis<0 ?0:dis;
 			
+		}
+		public Point3D findClosestPoint(List<Point3D> centers) {
+			double minDistance = Double.POSITIVE_INFINITY;
+			Point3D minCenter = null;
+			for (Point3D cen : centers) {
+				double distance = this.distance(cen);
+				if (distance < minDistance) {
+					minDistance = distance;
+					minCenter = cen;
+				}
+			}
+			return minCenter;
 		}
 	}
 
